@@ -1,12 +1,11 @@
-{
-  "jokesters": [
-    {
-      "id": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
-      "name": "Ronald Reagan"
-    },
-    {
-      "id": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
-      "name": "Chuck Norris"
-    }
-  ]
-}
+[
+  {
+    "id": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
+    "name": "Ronald Reagan",
+    "bio": "40th President of the United States"
+  },
+  {
+    "id": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
+    "name": "Chuck Norris"
+  }
+]

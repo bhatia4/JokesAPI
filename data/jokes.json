@@ -1,49 +1,48 @@
-{
-  "jokes": [
-    {
-      "id": "f0e64a8b-1f8c-4bbd-a9c9-9e485eaadf61",
+[
+  {
+    "id": "f0e64a8b-1f8c-4bbd-a9c9-9e485eaadf61",
+    "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
+    "joke": "I will not make age an issue of this campaign. I am not going to exploit, for political purposes, my opponent's youth and inexperience.",
+    "setup": "What did Ronald Reagan say about age during a 1984 presidential debate with Walter Mondale?"
+  },
+  {
+    "id": "3affeb90-3c9d-4d8e-84f7-0c88351a3485",
+    "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
+    "joke": "They say hard work never hurt anybody, but I figure why take the chance."
+  },
+  {
+    "id": "7f184d63-24f9-480a-ae18-80f5b2691096",
+    "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
+    "joke": "Recession is when your neighbor loses his job. Depression is when you lose yours. And recovery is when Jimmy Carter loses his."
+  },
+  {
+      "id": "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
       "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
-      "joke": "I will not make age an issue of this campaign. I am not going to exploit, for political purposes, my opponent's youth and inexperience."
-    },
-    {
-      "id": "3affeb90-3c9d-4d8e-84f7-0c88351a3485",
-      "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
-      "joke": "They say hard work never hurt anybody, but I figure why take the chance."
-    },
-    {
-      "id": "7f184d63-24f9-480a-ae18-80f5b2691096",
-      "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
-      "joke": "Recession is when your neighbor loses his job. Depression is when you lose yours. And recovery is when Jimmy Carter loses his."
-    },
-    {
-        "id": "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
-        "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
-        "joke": "I have left orders to be awakened at any time in case of national emergency, even if I'm in a cabinet meeting."
-    },
-    {
-      "id": "2b3c4d5e-6f7g-8h9i-0j1k-l2m3n4o5p6q7",
-      "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
-      "joke": "I have wondered at times what the Ten Commandments would have looked like if Moses had run them through the US Congress."
-    },
-    {
-      "id": "9f86d081-15f9-4474-b8db-66a95b5d2701",
-      "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
-      "joke": "When Chuck Norris slices onions, the onions cry."
-    },
-    {
-      "id": "b1a2c3d4-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
-      "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
-      "joke": "Chuck Norris can divide by zero."
-    },
-    {
-      "id": "c7d8e9f0-1a2b-3c4d-5e6f-7g8h9i0j1k2l",
-      "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
-      "joke": "Chuck Norris counted to infinity. Twice."
-    },
-    {
-      "id": "d3e4f5g6-7h8i-9j0k-1l2m-3n4o5p6q7r8s",
-      "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
-      "joke": "Chuck Norris can slam a revolving door."
-    }
-  ]
-}
+      "joke": "I have left orders to be awakened at any time in case of national emergency, even if I'm in a cabinet meeting."
+  },
+  {
+    "id": "2b3c4d5e-6f7g-8h9i-0j1k-l2m3n4o5p6q7",
+    "jokesterid": "3f715771-6d6e-4ccc-9747-cc8237a22fb5",
+    "joke": "I have wondered at times what the Ten Commandments would have looked like if Moses had run them through the US Congress."
+  },
+  {
+    "id": "9f86d081-15f9-4474-b8db-66a95b5d2701",
+    "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
+    "joke": "When Chuck Norris slices onions, the onions cry."
+  },
+  {
+    "id": "b1a2c3d4-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
+    "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
+    "joke": "Chuck Norris can divide by zero."
+  },
+  {
+    "id": "c7d8e9f0-1a2b-3c4d-5e6f-7g8h9i0j1k2l",
+    "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
+    "joke": "Chuck Norris counted to infinity. Twice."
+  },
+  {
+    "id": "d3e4f5g6-7h8i-9j0k-1l2m-3n4o5p6q7r8s",
+    "jokesterid": "4ee0b93f-b806-4c49-8d5a-aff45a2f0b0f",
+    "joke": "Chuck Norris can slam a revolving door."
+  }
+]
