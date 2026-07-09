@@ -1,10 +1,10 @@
 package com.example.jokesapi.service;
 
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-
 import java.time.Duration;
 import java.util.Optional;
+
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 @Service
 public class IdempotencyService {
@@ -14,6 +14,7 @@ public class IdempotencyService {
         this.redisTemplate = redisTemplate;
     }
 
+    @SuppressWarnings("null")
     public Optional<String> lookup(String key) {
         if (key == null || key.isBlank()) return Optional.empty();
         Object v = redisTemplate.opsForValue().get("idempotency:" + key);

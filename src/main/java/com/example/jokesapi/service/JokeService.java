@@ -1,13 +1,17 @@
 package com.example.jokesapi.service;
 
-import com.example.jokesapi.exception.ResourceNotFoundException;
-import com.example.jokesapi.model.Joke;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.example.jokesapi.exception.ResourceNotFoundException;
+import com.example.jokesapi.model.Joke;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class JokeService {
@@ -21,6 +25,7 @@ public class JokeService {
         this.mapper = mapper;
     }
 
+    @SuppressWarnings("null")
     public List<Joke> findAll() {
         Set<Object> ids = redisTemplate.opsForSet().members(idsKey);
         if (ids == null) return Collections.emptyList();
