@@ -1,14 +1,17 @@
 package com.example.jokesapi.service;
 
-import com.example.jokesapi.exception.ResourceNotFoundException;
-import com.example.jokesapi.model.Jokester;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.example.jokesapi.exception.ResourceNotFoundException;
+import com.example.jokesapi.model.Jokester;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class JokesterService {
@@ -22,6 +25,7 @@ public class JokesterService {
         this.mapper = mapper;
     }
 
+    @SuppressWarnings("null")
     public List<Jokester> findAll() {
         Set<Object> ids = redisTemplate.opsForSet().members(idsKey);
         if (ids == null) return Collections.emptyList();
@@ -38,18 +42,15 @@ public class JokesterService {
     }
 
     public Jokester create(Jokester jokester) {
-        if (jokester.getId() == null || jokester.getId().isBlank()) jokester.setId(UUID.randomUUID().toString());
+        jokester.setId(UUID.randomUUID().toString()); //always set new Id for create call (ignore Id that was sent)
         redisTemplate.opsForValue().set(prefix + jokester.getId(), jokester);
         redisTemplate.opsForSet().add(idsKey, jokester.getId());
         return jokester;
     }
 
-    public Jokester upsert(String id, Jokester jokester) {
-        if (id == null || id.isBlank()) id = jokester.getId();
-        if (id == null || id.isBlank()) id = UUID.randomUUID().toString();
-        jokester.setId(id);
-        redisTemplate.opsForValue().set(prefix + id, jokester);
-        redisTemplate.opsForSet().add(idsKey, id);
+    public Jokester upsert(Jokester jokester) {
+        redisTemplate.opsForValue().set(prefix + jokester.getId(), jokester);
+        redisTemplate.opsForSet().add(idsKey, jokester.getId());
         return jokester;
     }
 

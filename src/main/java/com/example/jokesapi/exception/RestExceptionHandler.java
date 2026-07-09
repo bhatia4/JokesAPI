@@ -1,13 +1,13 @@
 package com.example.jokesapi.exception;
 
+import java.net.URI;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.net.URI;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -24,6 +24,7 @@ public class RestExceptionHandler {
     public ResponseEntity<ProblemDetail> handleValidation(MethodArgumentNotValidException ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation error");
         pd.setTitle("Validation error");
+        pd.setDetail(ex.getMessage()); // including getMessage() to get more details about the validation errors
         return ResponseEntity.badRequest().body(pd);
     }
 
