@@ -3,7 +3,7 @@ package com.example.jokesapi.model;
 import jakarta.validation.constraints.NotBlank;
 
 public class Jokester {
-    @NotBlank
+    @NotBlank(groups = {Update.class}) // id is required for updates, but not for creation
     private String id;
 
     @NotBlank
@@ -25,4 +25,6 @@ public class Jokester {
     public void setName(String name) { this.name = name; }
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }
+
+    public interface Update {}
 }
