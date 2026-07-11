@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 
 public class Joke {
-    @NotBlank
+    @NotBlank(groups = {Update.class}) // id is required for updates, but not for creation
     private String id;
    
     private String setup;
@@ -15,6 +15,7 @@ public class Joke {
     private String punchline;
 
     @JsonProperty("jokesterid")
+    @NotBlank
     private String jokesterId;
 
     public Joke() {}
@@ -34,4 +35,6 @@ public class Joke {
     public void setPunchline(String punchline) { this.punchline = punchline; }
     public String getJokesterId() { return jokesterId; }
     public void setJokesterId(String jokesterId) { this.jokesterId = jokesterId; }
+
+    public interface Update {}
 }

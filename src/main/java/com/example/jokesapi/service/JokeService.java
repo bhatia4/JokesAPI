@@ -42,18 +42,15 @@ public class JokeService {
     }
 
     public Joke create(Joke joke) {
-        if (joke.getId() == null || joke.getId().isBlank()) joke.setId(UUID.randomUUID().toString());
+        joke.setId(UUID.randomUUID().toString()); //always set new Id for create call (ignore Id that was sent)
         redisTemplate.opsForValue().set(prefix + joke.getId(), joke);
         redisTemplate.opsForSet().add(idsKey, joke.getId());
         return joke;
     }
 
-    public Joke upsert(String id, Joke joke) {
-        if (id == null || id.isBlank()) id = joke.getId();
-        if (id == null || id.isBlank()) id = UUID.randomUUID().toString();
-        joke.setId(id);
-        redisTemplate.opsForValue().set(prefix + id, joke);
-        redisTemplate.opsForSet().add(idsKey, id);
+    public Joke upsert(Joke joke) {
+        redisTemplate.opsForValue().set(prefix + joke.getId(), joke);
+        redisTemplate.opsForSet().add(idsKey, joke.getId());
         return joke;
     }
 

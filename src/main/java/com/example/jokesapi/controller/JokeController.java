@@ -1,7 +1,8 @@
 package com.example.jokesapi.controller;
 
-import com.example.jokesapi.model.Joke;
-import com.example.jokesapi.service.JokeService;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -9,10 +10,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.example.jokesapi.model.Joke;
+import com.example.jokesapi.service.JokeService;
 
 @RestController
 @RequestMapping("/v1/jokes")
@@ -55,16 +65,16 @@ public class JokeController {
                 idempotencyService.store(idempotency, "joke", created.getId());
             }
         } else {
-            created = service.create(joke);
+            throw new IllegalArgumentException("Idempotency-Key header is required for POST requests");
         }
         EntityModel<Joke> model = EntityModel.of(created);
         model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).get(created.getId())).withSelfRel());
         return ResponseEntity.status(HttpStatus.CREATED).body(model);
     }
 
-    @PutMapping("/{id}")
-    public EntityModel<Joke> upsert(@PathVariable String id, @Validated @RequestBody Joke joke) {
-        Joke out = service.upsert(id, joke);
+    @PutMapping
+    public EntityModel<Joke> upsert(@Validated(value = {Joke.Update.class}) @RequestBody Joke joke) {
+        Joke out = service.upsert(joke);
         EntityModel<Joke> model = EntityModel.of(out);
         model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).get(out.getId())).withSelfRel());
         return model;
