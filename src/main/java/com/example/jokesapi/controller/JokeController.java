@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jokesapi.model.Joke;
+import com.example.jokesapi.model.PagedResult;
 import com.example.jokesapi.service.JokeService;
 
 @RestController
@@ -33,13 +35,19 @@ public class JokeController {
     public JokeController(JokeService service, com.example.jokesapi.service.IdempotencyService idempotencyService) { this.service = service; this.idempotencyService = idempotencyService; }
 
     @GetMapping
-    public CollectionModel<EntityModel<Joke>> list() {
-        List<EntityModel<Joke>> items = service.findAll().stream()
+    public CollectionModel<EntityModel<Joke>> list(@RequestParam(required = false) String cursor,
+                                                    @RequestParam(defaultValue = "10") int size) {
+        PagedResult<Joke> page = service.findPage(cursor, size);
+        List<EntityModel<Joke>> items = page.items().stream()
                 .map(j -> EntityModel.of(j,
                         WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).get(j.getId())).withSelfRel()))
                 .collect(Collectors.toList());
-        return CollectionModel.of(items,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).list()).withSelfRel());
+        CollectionModel<EntityModel<Joke>> model = CollectionModel.of(items,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).list(cursor, size)).withSelfRel());
+        if (page.nextCursor() != null) {
+            model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).list(page.nextCursor(), size)).withRel("next"));
+        }
+        return model;
     }
 
     @GetMapping("/{id}")
@@ -47,7 +55,7 @@ public class JokeController {
         Joke j = service.findById(id);
         EntityModel<Joke> model = EntityModel.of(j);
         model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).get(id)).withSelfRel());
-        model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).list()).withRel("jokes"));
+        model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(JokeController.class).list(null, 10)).withRel("jokes"));
         return model;
     }
 

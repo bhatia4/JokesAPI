@@ -15,9 +15,11 @@ Built using GitHub Copilot and IDE Visual Studio Code.
 
 ## Prompts:
 * Build using Java 25 and Spring Boot, a RESTful API with full CRUD capabilities to perform CRUD operations on jokes as well as its related jokesters. The two endpoint nouns are jokes and jokesters. Sample jokes and jokesters data found in ./data/*.json files. The API’s service and repository layers will create and manage in memory DB using the JSON files data and inherent relational structure. It will use Redis memory DB found on 127.0.0.1:6379. On application startup, the JSON data will be copied to local Redis DB, ready for use by endpoints. Use latest REST API standards including no deep nesting in URLs, use of idempotency headers to safely handle retries, API versioning (i.e., /v1 prefix) and naming conventions such as plural nouns. Also implement HATEOAS to help navigate between resources using links provided in responses. Finally, use structured error format for errors which includes problem details. The CRUD operations follow standard HTTP methods. Implement for all HTTP methods except PATCH. Allow upserts when implementing PUT calls.
+* implement cursor based pagination for both get all jokes and get all jokesters endpoints
 
 ## Coding LLMs:
 GPT-5 mini <br/>
+MAI-Code-1-Flash <br/>
 
 ## Build steps:
 

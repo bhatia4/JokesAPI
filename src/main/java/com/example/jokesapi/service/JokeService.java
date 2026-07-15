@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.jokesapi.exception.ResourceNotFoundException;
 import com.example.jokesapi.model.Joke;
+import com.example.jokesapi.model.PagedResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -25,14 +25,34 @@ public class JokeService {
         this.mapper = mapper;
     }
 
-    @SuppressWarnings("null")
     public List<Joke> findAll() {
+        return findPage(null, Integer.MAX_VALUE).items();
+    }
+
+    public PagedResult<Joke> findPage(String cursor, int size) {
         Set<Object> ids = redisTemplate.opsForSet().members(idsKey);
-        if (ids == null) return Collections.emptyList();
-        return ids.stream()
-                .map(Object::toString)
+        if (ids == null || ids.isEmpty()) return new PagedResult<>(Collections.emptyList(), null);
+
+        List<String> orderedIds = ids.stream().map(obj -> mapper.convertValue(obj, String.class)).toList();
+        int startIndex = 0;
+        if (cursor != null && !cursor.isBlank()) {
+            int cursorIndex = orderedIds.indexOf(cursor);
+            if (cursorIndex >= 0) {
+                startIndex = cursorIndex + 1;
+            }
+        }
+
+        int endIndex = Math.min(startIndex + Math.max(1, size), orderedIds.size());
+        List<Joke> items = orderedIds.subList(startIndex, endIndex).stream()
                 .map(this::findById)
-                .collect(Collectors.toList());
+                .toList();
+
+
+        String nextCursor = null;
+        if (endIndex < orderedIds.size()) {
+            nextCursor = orderedIds.get(endIndex - 1);
+        }
+        return new PagedResult<>(items, nextCursor);
     }
 
     public Joke findById(String id) {
